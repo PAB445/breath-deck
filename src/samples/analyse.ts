@@ -8,7 +8,11 @@ export interface Analysis {
   flags: string[]
 }
 
-const TARGET_RMS_DB: Record<StyleId, number> = { soft: -30, deep: -26, powerful: -22, connected: -27 }
+export const TARGET_RMS_DB: Record<StyleId, number> = { soft: -21, deep: -18, powerful: -15, connected: -18 }
+
+/** Gain that brings an already-processed take to its style's target level without clipping. */
+export const levelGain = (style: StyleId, rms: number, peak: number) =>
+  Math.min(Math.pow(10, TARGET_RMS_DB[style] / 20) / Math.max(rms, 1e-6), 0.95 / Math.max(peak, 1e-6))
 const db = (x: number) => 20 * Math.log10(Math.max(x, 1e-9))
 
 function highpass(x: Float32Array, sr: number, fc = 70): Float32Array {
@@ -63,8 +67,7 @@ export function analyse(raw: Float32Array, sr: number, style: StyleId, expectedS
     peak = Math.max(peak, Math.abs(t[i]))
   }
   const rms0 = Math.sqrt(sumSq / Math.max(1, t.length))
-  let gain = Math.pow(10, TARGET_RMS_DB[style] / 20) / Math.max(rms0, 1e-6)
-  gain = Math.min(gain, 0.95 / Math.max(peak, 1e-6))
+  const gain = levelGain(style, rms0, peak)
   const out = new Float32Array(t.length)
   for (let i = 0; i < t.length; i++) out[i] = t[i] * gain
   const fade = Math.min(Math.round(sr * 0.005), out.length >> 1)

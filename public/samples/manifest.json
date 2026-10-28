@@ -1,0 +1,260 @@
+{
+  "licence": "CC0 1.0 (public domain)",
+  "note": "HQ previews (128 kbps MP3) from Freesound, sliced into takes. Inhale/exhale labelled automatically by alternation; swap in the app if reversed.",
+  "styles": {
+    "soft": {
+      "sources": [
+        {
+          "title": "Long single breath through nose (male) 01",
+          "author": "thomasXkiteXforXlife",
+          "url": "https://freesound.org/people/thomasXkiteXforXlife/sounds/410864/"
+        }
+      ],
+      "takes": [
+        {
+          "file": "soft/inhale-1.wav",
+          "phase": "inhale",
+          "duration": 2.69
+        },
+        {
+          "file": "soft/exhale-1.wav",
+          "phase": "exhale",
+          "duration": 2.88
+        },
+        {
+          "file": "soft/inhale-2.wav",
+          "phase": "inhale",
+          "duration": 2.79
+        },
+        {
+          "file": "soft/exhale-2.wav",
+          "phase": "exhale",
+          "duration": 3.23
+        },
+        {
+          "file": "soft/inhale-3.wav",
+          "phase": "inhale",
+          "duration": 2.18
+        },
+        {
+          "file": "soft/exhale-3.wav",
+          "phase": "exhale",
+          "duration": 3.19
+        },
+        {
+          "file": "soft/inhale-4.wav",
+          "phase": "inhale",
+          "duration": 3.06
+        },
+        {
+          "file": "soft/exhale-4.wav",
+          "phase": "exhale",
+          "duration": 2.69
+        }
+      ]
+    },
+    "deep": {
+      "sources": [
+        {
+          "title": "Deep Inhales and Exhales (Compilation)",
+          "author": "Sheyvan",
+          "url": "https://freesound.org/people/Sheyvan/sounds/471080/"
+        }
+      ],
+      "takes": [
+        {
+          "file": "deep/inhale-1.wav",
+          "phase": "inhale",
+          "duration": 1.47
+        },
+        {
+          "file": "deep/exhale-1.wav",
+          "phase": "exhale",
+          "duration": 1.18
+        },
+        {
+          "file": "deep/inhale-2.wav",
+          "phase": "inhale",
+          "duration": 1.78
+        },
+        {
+          "file": "deep/exhale-2.wav",
+          "phase": "exhale",
+          "duration": 1.68
+        },
+        {
+          "file": "deep/inhale-3.wav",
+          "phase": "inhale",
+          "duration": 1.58
+        },
+        {
+          "file": "deep/exhale-3.wav",
+          "phase": "exhale",
+          "duration": 0.91
+        },
+        {
+          "file": "deep/inhale-4.wav",
+          "phase": "inhale",
+          "duration": 1.64
+        },
+        {
+          "file": "deep/exhale-4.wav",
+          "phase": "exhale",
+          "duration": 2.06
+        },
+        {
+          "file": "deep/inhale-5.wav",
+          "phase": "inhale",
+          "duration": 1.53
+        },
+        {
+          "file": "deep/exhale-5.wav",
+          "phase": "exhale",
+          "duration": 1.22
+        },
+        {
+          "file": "deep/inhale-6.wav",
+          "phase": "inhale",
+          "duration": 1.58
+        },
+        {
+          "file": "deep/exhale-6.wav",
+          "phase": "exhale",
+          "duration": 1.78
+        },
+        {
+          "file": "deep/inhale-7.wav",
+          "phase": "inhale",
+          "duration": 1.58
+        },
+        {
+          "file": "deep/exhale-7.wav",
+          "phase": "exhale",
+          "duration": 1.62
+        },
+        {
+          "file": "deep/inhale-8.wav",
+          "phase": "inhale",
+          "duration": 1.61
+        },
+        {
+          "file": "deep/exhale-8.wav",
+          "phase": "exhale",
+          "duration": 1.56
+        }
+      ]
+    },
+    "powerful": {
+      "sources": [
+        {
+          "title": "- Deep Breath",
+          "author": "rrehl",
+          "url": "https://freesound.org/people/rrehl/sounds/717167/"
+        }
+      ],
+      "takes": [
+        {
+          "file": "powerful/inhale-1.wav",
+          "phase": "inhale",
+          "duration": 1.35
+        },
+        {
+          "file": "powerful/exhale-1.wav",
+          "phase": "exhale",
+          "duration": 1.31
+        }
+      ]
+    },
+    "connected": {
+      "sources": [
+        {
+          "title": "Male_Breath_Fast_Loop_Stereo",
+          "author": "Nox_Sound",
+          "url": "https://freesound.org/people/Nox_Sound/sounds/554907/"
+        },
+        {
+          "title": "Deep Inhales and Exhales (Compilation)",
+          "author": "Sheyvan",
+          "url": "https://freesound.org/people/Sheyvan/sounds/471080/"
+        }
+      ],
+      "takes": [
+        {
+          "file": "connected/inhale-1.wav",
+          "phase": "inhale",
+          "duration": 0.48
+        },
+        {
+          "file": "connected/exhale-1.wav",
+          "phase": "exhale",
+          "duration": 0.51
+        },
+        {
+          "file": "connected/inhale-2.wav",
+          "phase": "inhale",
+          "duration": 0.47
+        },
+        {
+          "file": "connected/inhale-3.wav",
+          "phase": "inhale",
+          "duration": 0.53
+        },
+        {
+          "file": "connected/exhale-2.wav",
+          "phase": "exhale",
+          "duration": 0.52
+        },
+        {
+          "file": "connected/inhale-4.wav",
+          "phase": "inhale",
+          "duration": 0.58
+        },
+        {
+          "file": "connected/exhale-3.wav",
+          "phase": "exhale",
+          "duration": 0.47
+        },
+        {
+          "file": "connected/inhale-5.wav",
+          "phase": "inhale",
+          "duration": 1.62
+        },
+        {
+          "file": "connected/exhale-4.wav",
+          "phase": "exhale",
+          "duration": 1.35
+        },
+        {
+          "file": "connected/inhale-6.wav",
+          "phase": "inhale",
+          "duration": 0.69
+        },
+        {
+          "file": "connected/exhale-5.wav",
+          "phase": "exhale",
+          "duration": 2.69
+        },
+        {
+          "file": "connected/inhale-7.wav",
+          "phase": "inhale",
+          "duration": 1.74
+        },
+        {
+          "file": "connected/exhale-6.wav",
+          "phase": "exhale",
+          "duration": 2.18
+        },
+        {
+          "file": "connected/inhale-8.wav",
+          "phase": "inhale",
+          "duration": 1.81
+        },
+        {
+          "file": "connected/exhale-7.wav",
+          "phase": "exhale",
+          "duration": 1.76
+        }
+      ]
+    }
+  }
+}

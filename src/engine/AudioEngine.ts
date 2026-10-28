@@ -2,6 +2,7 @@ import type { Phases } from '../pattern/timing'
 import type { SampleLibrary } from '../samples/SampleLibrary'
 import { fillFor } from '../samples/types'
 import { Scheduler, type PhaseEvent, type StyleId, type VoiceHandle } from './Scheduler'
+import { createVoice } from './voice'
 
 export type Transport = 'stopped' | 'playing' | 'paused'
 export interface FramePos {
@@ -11,20 +12,12 @@ export interface FramePos {
   dur: number
 }
 
-const ease = (n: number) => {
-  const c = new Float32Array(n)
-  for (let i = 0; i < n; i++) c[i] = 0.5 - 0.5 * Math.cos((Math.PI * i) / (n - 1))
-  return c
-}
-const UP = ease(48)
-const DOWN = UP.slice().reverse()
-
 export class AudioEngine {
   ctx: AudioContext | null = null
   state: Transport = 'stopped'
   pattern: Phases = { inhale: 4, holdIn: 0, exhale: 4, holdOut: 0 }
   style: StyleId = 'soft'
-  volume = 0.6
+  volume = 0.7
   muted = false
   visualOffsetMs = 0
   sched: Scheduler
@@ -214,19 +207,7 @@ export class AudioEngine {
       return null
     }
     const when = Math.max(ctx.currentTime + 0.005, start - lead)
-    const len = Math.min(pick.buffer.duration / pick.rate, L + lead)
-    const a = Math.min(0.15, 0.2 * len)
-    const r = Math.min(0.4, 0.3 * len)
-    const src = ctx.createBufferSource()
-    src.buffer = pick.buffer
-    src.playbackRate.value = pick.rate
-    const g = ctx.createGain()
-    g.gain.setValueAtTime(0, when)
-    g.gain.setValueCurveAtTime(UP, when, a)
-    g.gain.setValueCurveAtTime(DOWN, when + len - r, r)
-    src.connect(g).connect(this.vol)
-    src.start(when)
-    src.stop(when + len + 0.05)
+    const { src, gain: g } = createVoice(ctx, this.vol, pick, when, L + lead)
     this.activeVoices++
     let done = false
     const cleanup = () => {

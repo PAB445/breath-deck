@@ -19,7 +19,7 @@ interface Saved {
 const defaults: Saved = {
   pattern: { inhale: 4, holdIn: 0, exhale: 4, holdOut: 0 },
   style: 'soft',
-  volume: 0.6,
+  volume: 0.7,
   theme: 'system',
   offsets: {},
 }
@@ -43,7 +43,8 @@ interface S extends Saved {
   transport: Transport
   live: boolean
   customs: Preset[]
-  panel: null | 'library' | 'speaker' | 'recording'
+  panel: null | 'library' | 'speaker' | 'recording' | 'welcome'
+  libraryTab: 'samples' | 'mine' | 'upload'
   notice: string
   suspended: boolean
   libVersion: number
@@ -63,7 +64,7 @@ interface S extends Saved {
   stop(): void
   toggleLive(force?: boolean): void
   setTheme(t: Theme): void
-  setPanel(p: S['panel']): void
+  setPanel(p: S['panel'], tab?: S['libraryTab']): void
   setNotice(n: string): void
   saveCustom(name: string): void
   renameCustom(id: string, name: string): void
@@ -78,6 +79,7 @@ export const useStore = create<S>((set, get) => ({
   live: false,
   customs,
   panel: null,
+  libraryTab: 'samples',
   notice: '',
   suspended: false,
   libVersion: 0,
@@ -96,7 +98,7 @@ export const useStore = create<S>((set, get) => ({
   setPhaseValue: (k, v) => get().setPattern(setPhase(get().pattern, k, v)),
   setRatio: (i, e) => get().setPattern(applyRatio(get().pattern, i, e)),
   setPattern: (pattern) => set({ pattern }),
-  setStyle: (style) => set({ style }),
+  setStyle: (style) => set({ style, notice: '' }),
   setVolume: (volume) => set({ volume }),
   toggleMute: () => set((s) => ({ muted: !s.muted })),
   play: () => void engine.play(),
@@ -104,7 +106,7 @@ export const useStore = create<S>((set, get) => ({
   stop: () => engine.stop(),
   toggleLive: (force) => set((s) => ({ live: force ?? !s.live })),
   setTheme: (theme) => set({ theme }),
-  setPanel: (panel) => set({ panel }),
+  setPanel: (panel, tab) => set(tab ? { panel, libraryTab: tab } : { panel }),
   setNotice: (notice) => set({ notice }),
   saveCustom: (name) =>
     set((s) => ({ customs: [...s.customs, { id: crypto.randomUUID(), name, phases: s.pattern }] })),
@@ -137,6 +139,8 @@ export function bindStore() {
   engine.onState = () => useStore.setState({ transport: engine.state })
   engine.onSuspended = (suspended) => useStore.setState({ suspended })
   engine.onMissing = (style) =>
-    useStore.setState({ notice: `No breathing recordings for ${style} yet. Record or upload some in Sound library.` })
-  library.subscribe(() => useStore.setState((x) => ({ libVersion: x.libVersion + 1 })))
+    useStore.setState({ notice: `No sound for ${style} yet. Turn on its sample sounds or record your own in Sounds.` })
+  library.subscribe(() =>
+    useStore.setState((x) => ({ libVersion: x.libVersion + 1, notice: library.hasStyle(x.style) ? '' : x.notice })),
+  )
 }

@@ -32,8 +32,9 @@ BreathDeck is a single-screen web app for **The Breath Reset** breathwork facili
 - **SND-4** Review grid: play, re-record single prompt (keep new/old), quality flags (clipping, quiet, noisy, length).
 - **SND-5** File upload (WAV, MP3, M4A, OGG, FLAC, WebM) per style/phase as secondary source.
 - **SND-6** Persistence in IndexedDB via a `TakeRepository` interface (future Firebase swap). Library export/import.
-- **SND-7** Optional CC0 library starter set (from Freesound) importable per style; user takes take priority. (Bundling is a later task; see plan.)
-- **SND-8** No sound for a style → app prompts to record; never falls back to synthetic sound.
+- **SND-7** Bundled **sample sounds**: real human breathing from Freesound, CC0 only (licence checked on each sound page; source, author and URL listed in-app). One or two source recordings per style, sliced into inhale/exhale takes. Enabled per style with one click (on by default so the app works immediately); once the user has own takes for both phases of a style, those are used instead of samples. Samples can be turned off per style, previewed, and their in/out labels swapped per style (labelling is automatic).
+- **SND-8** No sound for a style (no own takes and samples off) → app prompts to use samples or record; never falls back to synthetic sound.
+- **SND-10** First run shows a short welcome: "Start with sample sounds" (instant) or "Record your own breath" (5 to 10 min). Recording flow has a visible 3-step structure (Set up incl. microphone check → Record → Review), one clear instruction per screen, and a preview of the next prompt.
 - **SND-9** Dev fixture `breathing_sounds.m4a` (inhale 0.10–3.00 s, exhale 4.20–8.00 s) may be imported for testing; not committed.
 
 ## 4. Audio engine requirements
@@ -44,6 +45,8 @@ BreathDeck is a single-screen web app for **The Breath Reset** breathwork facili
 - **AUD-5** No overlapping schedules, duplicate events or leaks (voices disconnected on end; bounded active voices).
 - **AUD-6** Rate/timing change applies next cycle; style change applies next phase with crossfade; volume/mute immediate (ramped).
 - **AUD-7** Time-stretch: samples adapt to phase duration with pitch preservation within 0.75–1.33× (offline pre-render, cached). Outside range: fade early/clamp rather than artefacts; limit stated in UI.
+- **AUD-9** Breath level: takes normalised so breathing is clearly audible over music at default volume (70 %); perceptual volume curve.
+- **AUD-10** Engine verified by automated rendered-audio tests (OfflineAudioContext): breath energy in inhale/exhale, silence in holds, no clicks at voice edges, no clipping, Connected style without gaps, stretch preserves pitch.
 - **AUD-8** Pattern source abstraction so Journey/acceleration/beat-sync can be added without engine changes.
 
 ## 5. UI/UX requirements
@@ -53,6 +56,7 @@ BreathDeck is a single-screen web app for **The Breath Reset** breathwork facili
 - **UI-4** Night and Paper themes; default follows OS, toggle persists.
 - **UI-5** BreathDeck logo (SVG) in header and favicon.
 - **UI-6** Empty/loading/error states; keyboard accessible; reduced-motion respected.
+- **UI-7** Professional, easy-to-read layout: clear hierarchy (breath stage left, controls grouped into labelled cards right), main screen fits 1440×900 and 1280×800 without scrolling, consistent spacing, segmented controls instead of many outlined pills, a phase progress ring around the circle, one primary action colour (sage).
 
 ## 6. Technical requirements
 React + TypeScript, Vite, Tailwind, Web Audio API, zustand, localStorage (presets/settings), IndexedDB (takes). Chrome on macOS. No backend. Dev server port 5287. `localhost` is a secure context (mic + setSinkId).
@@ -64,4 +68,6 @@ Opens on MacBook; Spotify independent; realistic breathing over music; live pace
 Journey Builder (timed stages auto-transition); gradual acceleration (e.g. 8→25 BPM over 3 min, explicit confirmation); optional music-beat sync via tapped BPM (no Spotify analysis); Firebase per-user storage/auth; real-time stretching in AudioWorklet; live Freesound browsing.
 
 ## Change Log
+- 2026-10-28: Redesign implemented. SND-7 clarified: own takes replace samples per style once both phases exist; per-style swap in/out added. SND-10 step 1 named "Set up" (prep + mic).
+- 2026-10-28: Redesign request. SND-7 changed from "optional, import later" to bundled samples **enabled by default** (user asked for samples to be easy to use; flagged to user). Added SND-10, UI-7, AUD-9, AUD-10. SND-8 reworded accordingly. First run no longer auto-opens the recording guide (welcome choice instead).
 - 2026-10-28: Initial spec from BreathFlow plan; product renamed **BreathDeck** (was "BreathFlow").

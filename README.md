@@ -11,9 +11,11 @@ npm install
 npm run dev        # http://127.0.0.1:5287  (open in Chrome)
 npm test           # unit + scheduler tests
 npm run build && npm run preview   # http://127.0.0.1:5288
-npm run e2e        # headless Chrome smoke tests (needs the dev server running)
+npm run e2e        # headless Chrome: smoke, recording, rendered-audio and UI checks (needs the dev server running)
 ```
-First run opens **Recording Setup** (about 10 minutes) to record your own breath. Or use Sound library → upload files. Before a session open **Speaker** to check where audio goes, then press Test breath.
+On first run, choose **Start with sample sounds** (bundled CC0 breathing from Freesound, credited in Sounds → Sample sounds) or **Record your own breath** (a guided 5 to 10 minutes). Your own takes replace the samples style by style. You can also upload files in Sounds → Upload. Before a session open **Speaker** to check where audio goes, then press Test breath.
+
+Sample sounds live in `public/samples/` and are rebuilt with `python3 scripts/build-samples.py` (needs numpy and ffmpeg).
 
 Shortcuts: Space play/pause, M mute, Up/Down rate (when the slider is focused), Esc exit Live Mode.
 
